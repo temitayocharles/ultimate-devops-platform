@@ -125,11 +125,11 @@ ENV LANG=C.UTF-8 \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash ca-certificates curl git zsh openssh-client sudo adduser \
     python3 python3-pip make unzip \
-    docker.io iptables iproute2 \
+    docker.io iptables iproute2 tini \
     && rm -rf /var/lib/apt/lists/*
 
 RUN /usr/sbin/adduser --disabled-password --gecos "" devops \
-    && echo "devops ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/devops \
+    && echo "devops ALL=(ALL) NOPASSWD:/usr/sbin/dockerd" > /etc/sudoers.d/devops \
     && chmod 0440 /etc/sudoers.d/devops
 
 COPY --from=tools /opt/tools/* /usr/local/bin/
@@ -151,5 +151,5 @@ VOLUME [\"/home/devops\"]
 
 EXPOSE 8080
 
-ENTRYPOINT [\"/usr/local/bin/entrypoint.sh\"]
+ENTRYPOINT [\"/usr/bin/tini\",\"--\",\"/usr/local/bin/entrypoint.sh\"]
 CMD [\"zsh\"]

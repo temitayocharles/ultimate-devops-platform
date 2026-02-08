@@ -65,8 +65,6 @@ docker run --rm -it \
 
 - This image is intended as a **portable dev workstation**.
 - For Docker Engine inside container, use `--privileged` and set `ENABLE_DOCKERD=true`.
+- The container runs as a **non-root** user by default. `sudo` is limited to `/usr/sbin/dockerd`.
+- For best security, prefer the host Docker socket and avoid `--privileged` unless required.
 - Persist data by mounting `/home/devops`.
-
-## Optional UI
-
-If you want a simple UI companion, we can add a minimal web dashboard and ship a second image (or serve static docs inside the container).
