@@ -104,8 +104,14 @@ RUN curl -fsSL -o node.tar.xz "https://nodejs.org/dist/v${NODE_VERSION}/node-v${
     && tar -xJf node.tar.xz -C /opt/node --strip-components=1 \
     && rm -f node.tar.xz
 
-# awscli v2
-RUN curl -fsSL -o awscliv2.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
+# awscli v2 (arch-aware)
+RUN ARCH=$(uname -m) \
+    && if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then \
+         AWS_PKG="https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip"; \
+       else \
+         AWS_PKG="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"; \
+       fi \
+    && curl -fsSL -o awscliv2.zip "$AWS_PKG" \
     && unzip awscliv2.zip \
     && ./aws/install --install-dir /opt/aws-cli --bin-dir /opt/tools \
     && rm -rf aws awscliv2.zip
@@ -131,8 +137,8 @@ COPY --from=tools /opt/go /opt/go
 COPY --from=tools /opt/node /opt/node
 COPY --from=tools /opt/aws-cli /opt/aws-cli
 
-RUN ln -s /opt/aws-cli/v2/current/bin/aws /usr/local/bin/aws \
-    && ln -s /opt/aws-cli/v2/current/bin/aws_completer /usr/local/bin/aws_completer
+RUN ln -sf /opt/aws-cli/v2/current/bin/aws /usr/local/bin/aws \
+    && ln -sf /opt/aws-cli/v2/current/bin/aws_completer /usr/local/bin/aws_completer
 
 COPY ui /opt/ui
 
