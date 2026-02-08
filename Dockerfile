@@ -129,6 +129,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN /usr/sbin/adduser --disabled-password --gecos "" devops \
+    && /usr/sbin/adduser devops docker \
     && echo "devops ALL=(ALL) NOPASSWD:/usr/sbin/dockerd" > /etc/sudoers.d/devops \
     && chmod 0440 /etc/sudoers.d/devops
 
@@ -147,9 +148,9 @@ COPY --chmod=755 entrypoint.sh /usr/local/bin/entrypoint.sh
 WORKDIR /home/devops
 USER devops
 
-VOLUME [\"/home/devops\"]
+VOLUME ["/home/devops"]
 
 EXPOSE 8080
 
-ENTRYPOINT [\"/usr/bin/tini\",\"--\",\"/usr/local/bin/entrypoint.sh\"]
-CMD [\"zsh\"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
+CMD ["zsh"]
