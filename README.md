@@ -16,7 +16,7 @@ Core tools (preinstalled):
 ## Build
 
 ```bash
-docker build -t temitayocharles/ultimate-devops:latest .
+docker build -t temitayocharles/ultimate-devops-platform:latest .
 ```
 
 ## Run (Mac/Linux)
@@ -28,7 +28,7 @@ docker run --rm -it \
   -v $HOME/.kube:/home/devops/.kube \
   -v $HOME/.aws:/home/devops/.aws \
   -v $HOME/devops-work:/home/devops/work \
-  temitayocharles/ultimate-devops:latest
+  temitayocharles/ultimate-devops-platform:latest
 ```
 
 ### Option B: Docker-in-Docker
@@ -36,7 +36,7 @@ docker run --rm -it \
 docker run --rm -it --privileged \
   -e ENABLE_DOCKERD=true \
   -v $HOME/devops-work:/home/devops/work \
-  temitayocharles/ultimate-devops:latest
+  temitayocharles/ultimate-devops-platform:latest
 ```
 
 ## Run (Windows / WSL2)
@@ -47,7 +47,18 @@ docker run --rm -it ^
   -v %USERPROFILE%\\.kube:/home/devops/.kube ^
   -v %USERPROFILE%\\.aws:/home/devops/.aws ^
   -v %USERPROFILE%\\devops-work:/home/devops/work ^
-  temitayocharles/ultimate-devops:latest
+  temitayocharles/ultimate-devops-platform:latest
+```
+
+## Optional UI
+
+Enable a small status UI:
+
+```bash
+docker run --rm -it \
+  -e UI_ENABLED=true \
+  -p 8080:8080 \
+  temitayocharles/ultimate-devops-platform:latest
 ```
 
 ## Notes

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ultimate DevOps Platform</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <h1>Ultimate DevOps Platform</h1>
+        <p>Portable DevOps workstation container with batteries included.</p>
+      </header>
+
+      <section class="card">
+        <h2>Quick Start</h2>
+        <pre><code>docker run --rm -it \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v $HOME/devops-work:/home/devops/work \
+  -e UI_ENABLED=true \
+  -p 8080:8080 \
+  temitayocharles/ultimate-devops-platform:latest</code></pre>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <h3>Core Tools</h3>
+          <ul>
+            <li>kubectl, helm, k9s, kustomize</li>
+            <li>terraform, terragrunt, packer</li>
+            <li>vault, argocd, flux</li>
+            <li>aws cli, jq, yq</li>
+            <li>go, node, python</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Optional UI</h3>
+          <p>Enable with <code>UI_ENABLED=true</code>. Serves this page on port 8080.</p>
+          <p>Logs: <code>/tmp/ui.log</code></p>
+        </div>
+        <div class="card">
+          <h3>Docker Engine</h3>
+          <p>Use host socket (recommended) or enable Docker-in-Docker with <code>ENABLE_DOCKERD=true</code>.</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

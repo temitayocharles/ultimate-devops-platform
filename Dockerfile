@@ -134,6 +134,8 @@ COPY --from=tools /opt/aws-cli /opt/aws-cli
 RUN ln -s /opt/aws-cli/v2/current/bin/aws /usr/local/bin/aws \
     && ln -s /opt/aws-cli/v2/current/bin/aws_completer /usr/local/bin/aws_completer
 
+COPY ui /opt/ui
+
 WORKDIR /home/devops
 USER devops
 
@@ -141,6 +143,8 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 VOLUME [\"/home/devops\"]
+
+EXPOSE 8080
 
 ENTRYPOINT [\"/usr/local/bin/entrypoint.sh\"]
 CMD [\"zsh\"]
