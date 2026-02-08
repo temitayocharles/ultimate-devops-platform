@@ -17,7 +17,7 @@ ARG GO_VERSION=1.22.6
 ARG NODE_VERSION=20.15.1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates curl unzip tar gzip \
+    ca-certificates curl unzip tar gzip xz-utils \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/tools
