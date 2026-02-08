@@ -21,7 +21,7 @@ docker build -t temitayocharles/ultimate-devops-platform:latest .
 
 ## Run (Mac/Linux)
 
-### Option A: Use host Docker socket
+### Option A: Use host Docker socket (recommended)
 ```bash
 docker run --rm -it \
   -v /var/run/docker.sock:/var/run/docker.sock \
@@ -31,7 +31,7 @@ docker run --rm -it \
   temitayocharles/ultimate-devops-platform:latest
 ```
 
-### Option B: Docker-in-Docker
+### Option B: Docker-in-Docker (DinD)
 ```bash
 docker run --rm -it --privileged \
   -e ENABLE_DOCKERD=true \
@@ -50,21 +50,23 @@ docker run --rm -it ^
   temitayocharles/ultimate-devops-platform:latest
 ```
 
-## Optional UI
+## Optional UI + Docker-in-Docker (single command)
 
-Enable a small status UI:
+Enable the UI and auto-start Docker Engine inside the container:
 
 ```bash
 docker run --rm -it \
-  -e UI_ENABLED=true \
+  --privileged \
+  -e DEVOPS_UI=1 \
   -p 8080:8080 \
+  -v devops-home:/home/devops \
   temitayocharles/ultimate-devops-platform:latest
 ```
 
 ## Notes
 
 - This image is intended as a **portable dev workstation**.
-- For Docker Engine inside container, use `--privileged` and set `ENABLE_DOCKERD=true`.
+- For Docker Engine inside container, use `--privileged` and set `ENABLE_DOCKERD=true` (or `DEVOPS_UI=1`).
 - The container runs as a **non-root** user by default. `sudo` is limited to `/usr/sbin/dockerd`.
 - For best security, prefer the host Docker socket and avoid `--privileged` unless required.
 - Persist data by mounting `/home/devops`.
