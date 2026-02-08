@@ -122,7 +122,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     docker.io iptables iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN adduser --disabled-password --gecos "" devops \
+RUN /usr/sbin/adduser --disabled-password --gecos "" devops \
     && echo "devops ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/devops \
     && chmod 0440 /etc/sudoers.d/devops
 
