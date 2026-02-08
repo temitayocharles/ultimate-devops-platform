@@ -117,12 +117,12 @@ ENV LANG=C.UTF-8 \
     PATH=/usr/local/bin:/usr/bin:/bin:/opt/go/bin:/opt/node/bin
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    bash ca-certificates curl git zsh openssh-client sudo \
+    bash ca-certificates curl git zsh openssh-client sudo adduser \
     python3 python3-pip make unzip \
     docker.io iptables iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -s /bin/zsh devops \
+RUN adduser --disabled-password --gecos "" devops \
     && echo "devops ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/devops \
     && chmod 0440 /etc/sudoers.d/devops
 
