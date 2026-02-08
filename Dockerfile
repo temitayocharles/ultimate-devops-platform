@@ -142,11 +142,10 @@ RUN ln -sf /opt/aws-cli/v2/current/bin/aws /usr/local/bin/aws \
 
 COPY ui /opt/ui
 
+COPY --chmod=755 entrypoint.sh /usr/local/bin/entrypoint.sh
+
 WORKDIR /home/devops
 USER devops
-
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
 
 VOLUME [\"/home/devops\"]
 
