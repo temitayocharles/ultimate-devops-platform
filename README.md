@@ -1,5 +1,9 @@
 # Ultimate DevOps Dev Container
 
+
+## Start Here
+- Read [START_HERE.md](START_HERE.md) for the chronological playbook.
+
 Ready-to-use DevOps workstation in a container. Ships with Kubernetes, Terraform, Docker CLI/Engine, Vault CLI, AWS CLI, and core tooling.
 
 ## What’s Included
